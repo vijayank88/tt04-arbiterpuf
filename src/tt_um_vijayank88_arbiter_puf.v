@@ -12,40 +12,40 @@ module tt_um_vijayank88_arbiter_puf (
     
 );
 
-//	`ifdef USE_POWER_PINS
-//   	 inout vccd1,    // User area 1 1.8V power
-//   	 inout vssd1     // User area 1 digital ground
-//	`endif    
-	// Instantiate the arbiterpuf module
-    wire ipulse;            // Define signals to connect
-    wire [7:0] ichallenge;  // to the arbiterpuf module
-    wire oresponse;
+	`ifdef USE_POWER_PINS
+   	 inout vccd1,    // User area 1 1.8V power
+   	 inout vssd1     // User area 1 digital ground
+	`endif    
+	
+    
+    // Declare internal signals
+wire ipulse = clk;                    // Define signals to connect
+wire [7:0] ichallenge;
+wire oresponse;
 
-     // Assignments
-    assign uo_out[6:0] = 7'b0000000;
-    assign uo_out[7] = oresponse;   // Connect arbiterpuf response to uo_out[7]
-    assign ichallenge[7:0] = ui_in[7:0]; // Connect ichallenge to ui_in
-    wire ipulse = clk;            // Connect ipulse to clk
+// Assignments
+assign uo_out[7] = oresponse;   // Connect arbiterpuf response to uo_out[7]
+assign uio_in = ichallenge;      // Connect ichallenge to uio_in
     
     arbiterpuf arb_inst (
-  //       `ifdef USE_POWER_PINS
-  //      .vccd1(vccd1),
-  //      .vssd1(vssd1),
-  //      `endif
-	    .ipulse(ipulse),
-	    .ichallenge(ichallenge),
+        `ifdef USE_POWER_PINS
+        .vccd1(vccd1),
+        .vssd1(vssd1),
+        `endif
+        .ipulse(ipulse),
+        .ichallenge(ichallenge),
         .oresponse(oresponse)
     );
   
 endmodule
 	
 //`timescale 1ns / 1ps
-
+//`include "timescale.vh"
 module arbiterpuf(
-//`ifdef USE_POWER_PINS
-//	inout vccd1,	// User area 1 1.8V power
-//	inout vssd1,	// User area 1 digital ground
-//`endif
+`ifdef USE_POWER_PINS
+	inout vccd1,	// User area 1 1.8V power
+	inout vssd1,	// User area 1 digital ground
+`endif
 	input ipulse,
 	input[7:0] ichallenge,
 	output oresponse
@@ -97,7 +97,7 @@ output oout_2
     `ifndef parameters
 `define  parameters
 
- parameter C_LENGTH = 16; //the length of the chain of the multiplexer 
+ parameter C_LENGTH = 8; //the length of the chain of the multiplexer 
 `endif 
     (* dont_touch = "yes" *) wire  [2 * C_LENGTH + 1 : 0] net;
  //   wire [2 * C_LENGTH + 1 : 0] net;
@@ -126,4 +126,3 @@ output oout_2
     assign oout_1 = net [C_LENGTH * 2];
     assign oout_2 = net [C_LENGTH * 2 + 1];
     endmodule
-
