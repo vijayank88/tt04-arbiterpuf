@@ -22,17 +22,17 @@ module tt_um_vijayank88_arbiter_puf (
     wire oresponse;
 
      // Assignments
-	assign uo_out[6:0] = 1'b0;
+    assign uo_out[6:0] = 1'b0;
     assign uo_out[7] = oresponse;   // Connect arbiterpuf response to uo_out[7]
     assign ui_in[7:0] = ichallenge[7:0]; // Connect ichallenge to ui_in
-    assign clk = ipulse;            // Connect ipulse to clk
+ //   assign clk = ipulse;            // Connect ipulse to clk
     
     arbiterpuf arb_inst (
   //       `ifdef USE_POWER_PINS
   //      .vccd1(vccd1),
   //      .vssd1(vssd1),
   //      `endif
-        .ipulse(ipulse),
+	.ipulse(clk),
         .ichallenge(ichallenge),
         .oresponse(oresponse)
     );
