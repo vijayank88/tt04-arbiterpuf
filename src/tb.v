@@ -18,8 +18,8 @@ module tb ();
 
     // wire up the inputs and outputs
     reg  clk = ipulse;
-    reg  [7:0] ui_in = [7:0] ichallenge;
-    reg  [7:0] uio_in;
+    reg  [7:0] uio_in = [7:0] ichallenge;
+    reg  [7:0] ui_in;
     reg  rst_n;
     reg  ena;
     
