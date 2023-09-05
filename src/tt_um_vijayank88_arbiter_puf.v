@@ -24,7 +24,7 @@ module tt_um_vijayank88_arbiter_puf (
      // Assignments
     assign uo_out[6:0] = 1'b0;
     assign uo_out[7] = oresponse;   // Connect arbiterpuf response to uo_out[7]
-    assign ichanllenge[7:0] = ui_in[7:0]; // Connect ichallenge to ui_in
+    assign ichallenge[7:0] = ui_in[7:0]; // Connect ichallenge to ui_in
     wire ipulse = clk;            // Connect ipulse to clk
     
     arbiterpuf arb_inst (
