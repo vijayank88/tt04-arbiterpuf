@@ -58,3 +58,5 @@ set ::env(CLOCK_PORT) {clk}
 set ::env(DESIGN_IS_CORE) 0
 set ::env(RT_MAX_LAYER) {met4}
 set ::env(QUIT_ON_SYNTH_CHECKS) 0
+#Fix hold violations
+set ::env(PL_RESIZER_HOLD_MAX_BUFFER_PERCENT) 100
