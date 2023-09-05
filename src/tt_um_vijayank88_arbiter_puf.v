@@ -24,8 +24,8 @@ wire [7:0] ichallenge;
 wire oresponse;
 
 // Assignments
-assign uo_out[7] = oresponse;   // Connect arbiterpuf response to uo_out[7]
-assign uio_in = ichallenge;      // Connect ichallenge to uio_in
+assign oresponse = uo_out[7];   // Connect arbiterpuf response to uo_out[7]
+assign ichallenge[7:0] = uio_in[7:0];      // Connect ichallenge to uio_in
     
     arbiterpuf arb_inst (
         `ifdef USE_POWER_PINS
@@ -86,6 +86,13 @@ module dff(
    oq <= id;
    end
 endmodule
+
+`ifndef parameters
+`define  parameters
+
+ parameter C_LENGTH = 8; //the length of the chain of the multiplexer 
+`endif 
+
 module delay_line(
 //input ipulse,isel,
 //output oout
@@ -94,11 +101,7 @@ input [C_LENGTH - 1 : 0] ichallenge,
 output oout_1,
 output oout_2
     );
-    `ifndef parameters
-`define  parameters
 
- parameter C_LENGTH = 8; //the length of the chain of the multiplexer 
-`endif 
     (* dont_touch = "yes" *) wire  [2 * C_LENGTH + 1 : 0] net;
  //   wire [2 * C_LENGTH + 1 : 0] net;
     assign net [0] =ipulse;
