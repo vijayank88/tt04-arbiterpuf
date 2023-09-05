@@ -1,6 +1,6 @@
 `default_nettype none
 
-module tt_um_vijayank88_arbiter_puf #( parameter MAX_COUNT = 24'd10_000_000 ) (
+module tt_um_vijayank88_arbiter_puf (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7-segment display
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
@@ -12,25 +12,26 @@ module tt_um_vijayank88_arbiter_puf #( parameter MAX_COUNT = 24'd10_000_000 ) (
     
 );
 
-	`ifdef USE_POWER_PINS
-   	 inout vccd1,    // User area 1 1.8V power
-   	 inout vssd1     // User area 1 digital ground
-	`endif    
+//	`ifdef USE_POWER_PINS
+//   	 inout vccd1,    // User area 1 1.8V power
+//   	 inout vssd1     // User area 1 digital ground
+//	`endif    
 	// Instantiate the arbiterpuf module
     wire ipulse;            // Define signals to connect
     wire [7:0] ichallenge;  // to the arbiterpuf module
     wire oresponse;
 
      // Assignments
+	assign uo_out[6:0] = 1'b0;
     assign uo_out[7] = oresponse;   // Connect arbiterpuf response to uo_out[7]
     assign ui_in[7:0] = ichallenge[7:0]; // Connect ichallenge to ui_in
     assign clk = ipulse;            // Connect ipulse to clk
     
     arbiterpuf arb_inst (
-        `ifdef USE_POWER_PINS
-        .vccd1(vccd1),
-        .vssd1(vssd1),
-        `endif
+  //       `ifdef USE_POWER_PINS
+  //      .vccd1(vccd1),
+  //      .vssd1(vssd1),
+  //      `endif
         .ipulse(ipulse),
         .ichallenge(ichallenge),
         .oresponse(oresponse)
@@ -38,13 +39,13 @@ module tt_um_vijayank88_arbiter_puf #( parameter MAX_COUNT = 24'd10_000_000 ) (
   
 endmodule
 	
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 
 module arbiterpuf(
-`ifdef USE_POWER_PINS
-	inout vccd1,	// User area 1 1.8V power
-	inout vssd1,	// User area 1 digital ground
-`endif
+//`ifdef USE_POWER_PINS
+//	inout vccd1,	// User area 1 1.8V power
+//	inout vssd1,	// User area 1 digital ground
+//`endif
 	input ipulse,
 	input[7:0] ichallenge,
 	output oresponse
