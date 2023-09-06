@@ -17,7 +17,7 @@ set ::env(RUN_KLAYOUT_DRC) 0
 
 # don't put clock buffers on the outputs
 set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
-set ::env(CTS_ROOT_BUFFER) "sky130_fd_sc_hd__clkbuf_8"
+set ::env(CTS_ROOT_BUFFER) "sky130_fd_sc_hd__clkbuf_2"
 
 # allow use of specific sky130 cells
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
