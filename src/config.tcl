@@ -17,7 +17,7 @@ set ::env(RUN_KLAYOUT_DRC) 0
 
 # don't put clock buffers on the outputs
 set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
-set ::env(CTS_ROOT_BUFFER) "sky130_fd_sc_hd__clkbuf_2"
+#set ::env(CTS_ROOT_BUFFER) "sky130_fd_sc_hd__clkbuf_2"
 
 # allow use of specific sky130 cells
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
@@ -50,11 +50,12 @@ set ::env(RUN_CTS) 1
 # period is in ns, so 20ns == 50mHz
 set ::env(CLOCK_PERIOD) "8"
 set ::env(CLOCK_PORT) "clk"
+set ::env(IO_PCT) "0.4"
 #set ::env(CLOCK_NET) "arbit_inst.ipulse"
 
 # hold/slack margin
- set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) 0.9 
- set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.9 
+ set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) 0.8
+ set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.8
 
 # don't use power rings or met5
 set ::env(DESIGN_IS_CORE) 0
