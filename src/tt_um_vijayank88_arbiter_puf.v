@@ -29,7 +29,7 @@ assign uio_oe = 0;
 //assign uio_out[7:1] = 0;
 	// Assignments
 assign uio_out = oresponse;   // Connect arbiterpuf response to uo_out[7]
-	wire ichallenge[7:0] = uio_in[7:0];      // Connect ichallenge to uio_in
+	wire [7:0] ichallenge = uio_in[7:0];      // Connect ichallenge to uio_in
 
 	
 	
