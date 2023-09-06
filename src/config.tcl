@@ -16,7 +16,8 @@ set ::env(RUN_KLAYOUT_XOR) 0
 set ::env(RUN_KLAYOUT_DRC) 0
 
 # don't put clock buffers on the outputs
-#set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
+set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
+set ::env(CTS_ROOT_BUFFER) "sky130_fd_sc_hd__clkbuf_8"
 
 # allow use of specific sky130 cells
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
@@ -31,7 +32,7 @@ set ::env(RIGHT_MARGIN_MULT) 6
 set ::env(FP_SIZING) absolute
 
 set ::env(PL_BASIC_PLACEMENT) {0}
-set ::env(GRT_ALLOW_CONGESTION) "1"
+#set ::env(GRT_ALLOW_CONGESTION) "1"
 
 set ::env(FP_IO_HLENGTH) 2
 set ::env(FP_IO_VLENGTH) 2
@@ -47,20 +48,15 @@ set ::env(DECAP_CELL) "\
 # clock
 set ::env(RUN_CTS) 1
 # period is in ns, so 20ns == 50mHz
-set ::env(CLOCK_PERIOD) "10"
+set ::env(CLOCK_PERIOD) "30"
 set ::env(CLOCK_PORT) "clk"
 set ::env(CLOCK_NET) "arbit_inst.ipulse"
 
 # hold/slack margin
-# set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) 0.8 
-# set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.8 
+ set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) 0.8 
+ set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.8 
 
 # don't use power rings or met5
 set ::env(DESIGN_IS_CORE) 0
 set ::env(RT_MAX_LAYER) {met4}
 set ::env(QUIT_ON_SYNTH_CHECKS) 0
-#Fix hold violations
-set ::env(PL_RESIZER_HOLD_MAX_BUFFER_PERCENT) 80
-set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) 0.8
-set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.8
-set ::env(GLB_RESIZER_HOLD_MAX_BUFFER_PERCENT) 80
