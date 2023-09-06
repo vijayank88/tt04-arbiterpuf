@@ -1,6 +1,9 @@
 `default_nettype none
 
-module tt_um_vijayank88_arbiter_puf  (
+module tt_um_vijayank88_arbiter_puf #(
+	parameter integer C_LENGTH = 8
+         ) 
+	(
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7-segment display
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
