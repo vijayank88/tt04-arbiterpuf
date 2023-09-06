@@ -48,9 +48,9 @@ set ::env(DECAP_CELL) "\
 # clock
 set ::env(RUN_CTS) 1
 # period is in ns, so 20ns == 50mHz
-set ::env(CLOCK_PERIOD) "8"
+set ::env(CLOCK_PERIOD) "20"
 set ::env(CLOCK_PORT) "clk"
-set ::env(IO_PCT) "0.4"
+set ::env(IO_PCT) "0.5"
 #set ::env(CLOCK_NET) "arbit_inst.ipulse"
 
 # hold/slack margin
