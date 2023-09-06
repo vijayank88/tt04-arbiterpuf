@@ -1,6 +1,6 @@
 `default_nettype none
 
-module tt_um_vijayank88_arbiter_puf (
+module tt_um_nehamjhanwar_arbiter_puf  (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7-segment display
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
@@ -21,11 +21,21 @@ module tt_um_vijayank88_arbiter_puf (
     // Declare internal signals
 wire ipulse = clk;                    // Define signals to connect
 wire [7:0] ichallenge;
-wire oresponse;
+wire [7:0] oresponse; // Assuming 'oresponse' is a seven-bit signal
+//assign oresponse = uio_out[0]; // Select the least significant bit (LSB) of uio_out
+assign uo_out = 0;
+assign uio_oe = 0;
+//assign uio_out[7:0] = 0;
+//assign uio_out[7:1] = 0;
+	// Assignments
+assign uio_out = oresponse;   // Connect arbiterpuf response to uo_out[7]
+assign ichallenge = uio_in;      // Connect ichallenge to uio_in
 
-// Assignments
-assign oresponse = uo_out[7];   // Connect arbiterpuf response to uo_out[7]
-assign ichallenge[7:0] = uio_in[7:0];      // Connect ichallenge to uio_in
+	
+	
+	//assign ui_in[7:0] = 0;
+	//assign ena = 0;
+	//assign rst_n = 0;
     
     arbiterpuf arb_inst (
         `ifdef USE_POWER_PINS
@@ -40,14 +50,31 @@ assign ichallenge[7:0] = uio_in[7:0];      // Connect ichallenge to uio_in
 endmodule
 	
 //`timescale 1ns / 1ps
-//`include "timescale.vh"
+
 module arbiterpuf(
 `ifdef USE_POWER_PINS
 	inout vccd1,	// User area 1 1.8V power
 	inout vssd1,	// User area 1 digital ground
 `endif
+     input ipulse,
+     input [7:0] ichallenge,
+     output [7:0] oresponse
+ );
+ genvar i;
+ generate
+ begin
+	 for(i=0;i<=7;i=i+1) 
+ begin :inst
+ arbiterpuf_1 a1(.ipulse(ipulse),.ichallenge(ichallenge),.oresponse(oresponse[i]));
+ end
+ end
+ endgenerate
+
+endmodule
+module arbiterpuf_1(
+
 	input ipulse,
-	input[7:0] ichallenge,
+	input [7:0] ichallenge,
 	output oresponse
     );
     wire odelay_line_oout_1;
@@ -72,8 +99,16 @@ module mux(
     input isel,
     output reg oout
     );
-     always@(*)
-         oout <= isel ? ia : ib;
+
+always @(*) begin
+    if (isel == 0) begin
+        oout = ia;
+    end
+    else begin
+        oout = ib;
+    end
+end
+
 endmodule
 module dff(
     input id,
@@ -86,13 +121,11 @@ module dff(
    oq <= id;
    end
 endmodule
-
-`ifndef parameters
+    `ifndef parameters
 `define  parameters
 
  parameter C_LENGTH = 8; //the length of the chain of the multiplexer 
-`endif 
-
+`endif
 module delay_line(
 //input ipulse,isel,
 //output oout
@@ -101,7 +134,7 @@ input [C_LENGTH - 1 : 0] ichallenge,
 output oout_1,
 output oout_2
     );
-
+ 
     (* dont_touch = "yes" *) wire  [2 * C_LENGTH + 1 : 0] net;
  //   wire [2 * C_LENGTH + 1 : 0] net;
     assign net [0] =ipulse;
