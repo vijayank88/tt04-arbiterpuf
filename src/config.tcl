@@ -16,7 +16,7 @@ set ::env(RUN_KLAYOUT_XOR) 0
 set ::env(RUN_KLAYOUT_DRC) 0
 
 # don't put clock buffers on the outputs
-set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
+#set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
 
 # allow use of specific sky130 cells
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
@@ -48,7 +48,7 @@ set ::env(DECAP_CELL) "\
 set ::env(RUN_CTS) 1
 # period is in ns, so 20ns == 50mHz
 set ::env(CLOCK_PERIOD) "10"
-set ::env(CLOCK_PORT) ""
+set ::env(CLOCK_PORT) "clk"
 set ::env(CLOCK_NET) "arbit_inst.ipulse"
 
 # hold/slack margin
