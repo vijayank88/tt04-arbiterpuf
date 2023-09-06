@@ -10,7 +10,7 @@ set script_dir [file dirname [file normalize [info script]]]
 # - the name of the module is defined
 # - the list of source files
 source $::env(DESIGN_DIR)/user_config.tcl
-
+set ::env(SYNTH_AUTONAME) 1
 # save some time
 set ::env(RUN_KLAYOUT_XOR) 0
 set ::env(RUN_KLAYOUT_DRC) 0
@@ -48,13 +48,13 @@ set ::env(DECAP_CELL) "\
 # clock
 set ::env(RUN_CTS) 1
 # period is in ns, so 20ns == 50mHz
-set ::env(CLOCK_PERIOD) "30"
+set ::env(CLOCK_PERIOD) "8"
 set ::env(CLOCK_PORT) "clk"
-set ::env(CLOCK_NET) "arbit_inst.ipulse"
+#set ::env(CLOCK_NET) "arbit_inst.ipulse"
 
 # hold/slack margin
- set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) 0.8 
- set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.8 
+ set ::env(PL_RESIZER_HOLD_SLACK_MARGIN) 0.9 
+ set ::env(GLB_RESIZER_HOLD_SLACK_MARGIN) 0.9 
 
 # don't use power rings or met5
 set ::env(DESIGN_IS_CORE) 0
